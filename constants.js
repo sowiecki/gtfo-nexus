@@ -1,11 +1,8 @@
-module.exports = {
-  PHOTON_PINS: {
-    red: 'D0',
-    green: 'D1',
-    blue: 'D2'
-  },
-  IN: 'IN',
-  OUT: 'OUT',
-  PURPLE: '#551A8B',
-  RED: '#FF0000'
+export const PHOTON_PINS = {
+  red: 'D0',
+  green: 'D1',
+  blue: 'D2'
 };
+
+export const IN = 'IN'
+export const OUT = 'OUT';

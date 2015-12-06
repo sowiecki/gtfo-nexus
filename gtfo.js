@@ -1,60 +1,70 @@
-const five = require('johnny-five');
-const Particle = require('particle-io');
-const temporal = require('temporal');
-// const Pixel = require('node-pixel');
+import { Board, Led } from 'johnny-five';
+import Particle from 'particle-io';
+import temporal from 'temporal';
+import fs from 'fs';
+// import Pixel from 'node-pixel';
 
-const PHOTON_PINS = require('./constants').PHOTON_PINS;
-const IN = require('./constants').IN;
-const OUT = require('./constants').OUT;
-const RED = require('./constants').RED;
-const PURPLE = require('./constants').PURPLE;
+import {
+  PHOTON_PINS,
+  IN,
+  OUT
+} from './constants';
 
-const devices = JSON.parse(require('fs').readFileSync('./devices.json', 'utf8')).devices;
-console.log(devices)
+import {
+  RED,
+  PURPLE
+} from './colors';
+
+const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
+
 // TODO integrate multiple boards
 
-const board = new five.Board({
+const board = new Board({
   io: new Particle({
     token: devices[0].accessToken,
     deviceId: devices[0].id
   })
 });
 
-board.on('ready', () => {
-  console.log(`Connected to ${board.id}`);
+const gtfo = () => {
+  board.on('ready', () => {
+    console.log(`Connected to ${board.id}`);
 
-  const led = new five.Led.RGB({
-    pins: PHOTON_PINS
+    const led = new Led.RGB({
+      pins: PHOTON_PINS
+    });
+
+    led.color(RED);
+
+    let intensity = 100;
+    let fadeDirection = IN;
+
+    temporal.loop(6, () => {
+      switch (intensity) {
+        case 0:
+          fadeDirection = IN;
+          break;
+        case 100:
+          fadeDirection = OUT;
+          break;
+      }
+
+      switch (fadeDirection) {
+        case IN:
+          intensity += 1;
+          break;
+        case OUT:
+          intensity -= 1;
+          break;
+      }
+      console.log(`intensity: ${intensity} \n fadeDirection: ${fadeDirection}`)
+      led.intensity(intensity);
+    });
+
+    board.repl.inject({
+      led
+    });
   });
+};
 
-  led.color(RED);
-
-  let intensity = 100;
-  let fadeDirection = IN;
-
-  temporal.loop(6, () => {
-    switch (intensity) {
-      case 0:
-        fadeDirection = IN;
-        break;
-      case 100:
-        fadeDirection = OUT;
-        break;
-    }
-
-    switch (fadeDirection) {
-      case IN:
-        intensity += 1;
-        break;
-      case OUT:
-        intensity -= 1;
-        break;
-    }
-    console.log(`intensity: ${intensity} \n fadeDirection: ${fadeDirection}`)
-    led.intensity(intensity);
-  });
-
-  board.repl.inject({
-    led
-  });
-});
+export default gtfo;
