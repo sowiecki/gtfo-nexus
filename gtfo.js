@@ -11,7 +11,7 @@ import {
 } from './constants';
 
 import {
-  RED,
+  // RED,
   PURPLE
 } from './colors';
 
@@ -34,7 +34,7 @@ const gtfo = () => {
       pins: PHOTON_PINS
     });
 
-    led.color(RED);
+    led.color(PURPLE);
 
     let intensity = 100;
     let fadeDirection = IN;
@@ -57,7 +57,9 @@ const gtfo = () => {
           intensity -= 1;
           break;
       }
-      console.log(`intensity: ${intensity} \n fadeDirection: ${fadeDirection}`)
+
+      console.log(`intensity: ${intensity} \n fadeDirection: ${fadeDirection}`);
+
       led.intensity(intensity);
     });
 

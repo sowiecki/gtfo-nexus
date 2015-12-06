@@ -6,6 +6,7 @@
   "repository": "git@github.com:Nase00/gtfo-nexus.git",
   "scripts": {
     "start": "node --use-strict server",
+    "lint": "eslint **/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

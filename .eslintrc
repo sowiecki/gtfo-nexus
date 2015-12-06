@@ -9,7 +9,6 @@
   "ecmaFeatures": {
     "modules": true
   },
-  "plugins": ["react"],
   "env": {
     "es6": true
   },
@@ -19,7 +18,8 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-invalid-this": 0,
     "valid-jsdoc": 0,
-    "prefer-spread": 0
+    "prefer-spread": 0,
+    "no-console": 0
   },
   "globals": {
     "require": true
