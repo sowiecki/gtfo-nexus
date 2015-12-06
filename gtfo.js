@@ -9,8 +9,8 @@ const OUT = require('./constants').OUT;
 const RED = require('./constants').RED;
 const PURPLE = require('./constants').PURPLE;
 
-const devices = JSON.parse(require('fs').readFileSync('./devices.json', 'utf8'));
-
+const devices = JSON.parse(require('fs').readFileSync('./devices.json', 'utf8')).devices;
+console.log(devices)
 // TODO integrate multiple boards
 
 const board = new five.Board({
