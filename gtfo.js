@@ -9,12 +9,14 @@ const OUT = require('./constants').OUT;
 const RED = require('./constants').RED;
 const PURPLE = require('./constants').PURPLE;
 
-// TODO integrate with devices read from .json file
+const devices = JSON.parse(require('fs').readFileSync('./devices.json', 'utf8'));
+
+// TODO integrate multiple boards
 
 const board = new five.Board({
   io: new Particle({
-    token: ACCESS_TOKEN,
-    deviceId: DEVICE_ID
+    token: devices[0].accessToken,
+    deviceId: devices[0].id
   })
 });
 
