@@ -1,3 +1,5 @@
+This repository is **deprecated**, please refer to https://github.com/Nase00/gtfo
+
 # GTFO Nexus
 *Host controller for GTFO modules*
 
